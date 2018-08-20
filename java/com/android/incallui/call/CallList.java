@@ -60,8 +60,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CallList implements DialerCallDelegate {
 
   private static final int DISCONNECTED_CALL_SHORT_TIMEOUT_MS = 200;
-  private static final int DISCONNECTED_CALL_MEDIUM_TIMEOUT_MS = 2000;
-  private static final int DISCONNECTED_CALL_LONG_TIMEOUT_MS = 5000;
+  private static final int DISCONNECTED_CALL_MEDIUM_TIMEOUT_MS = 1000;
+  private static final int DISCONNECTED_CALL_LONG_TIMEOUT_MS = 2000;
 
   private static final int EVENT_DISCONNECTED_TIMEOUT = 1;
 
