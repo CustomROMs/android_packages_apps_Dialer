@@ -980,7 +980,7 @@ public class ContactListItemView extends ViewGroup implements SelectionBoundsAdj
   public TextView getNameTextView() {
     if (mNameTextView == null) {
       mNameTextView = new TextView(getContext());
-      mNameTextView.setSingleLine(true);
+      mNameTextView.setSingleLine(false);
       mNameTextView.setEllipsize(getTextEllipsis());
       mNameTextView.setTextColor(mNameTextViewTextColor);
       mNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mNameTextViewTextSize);
