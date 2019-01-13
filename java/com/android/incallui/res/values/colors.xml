@@ -90,6 +90,8 @@
 
   <color name="incall_background_multiwindow_spam">#E9C22E2E</color>
 
+  <color name="incall_background_black_color">#ff000000</color>
+
   <!-- SiX Exposed colors -->
   <color name="message_primary_text_color_six">#ffffff</color>
 
