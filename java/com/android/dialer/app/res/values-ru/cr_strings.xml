@@ -25,4 +25,9 @@
     <string name="default_incallui_background_color">По умолчанию</string>
     <string name="black_incallui_background_color">Черный</string>
     <string name="transparent_incallui_background_color">Прозрачный</string>
+
+    <!-- Dialer postcall -->
+    <string name="enable_post_call_title">Уведомление после звонка</string>
+    <string name="enable_post_call_summary">Включить уведомление внизу экрана после звонка</string>
+
 </resources>

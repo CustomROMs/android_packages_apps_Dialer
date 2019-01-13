@@ -26,4 +26,9 @@
     <string name="default_incallui_background_color">Default</string>
     <string name="black_incallui_background_color">Black</string>
     <string name="transparent_incallui_background_color">Transparent</string>
+
+    <!-- Dialer postcall -->
+    <string name="enable_post_call_title">Post call snackbar</string>
+    <string name="enable_post_call_summary">Enable post call notifications at the bottom of screen</string>
+
 </resources>
