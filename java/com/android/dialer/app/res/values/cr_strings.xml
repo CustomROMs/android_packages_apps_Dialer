@@ -20,4 +20,7 @@
     <string name="fullscreen_caller_photo_title">Fullscreen photo</string>
     <string name="fullscreen_caller_photo_summary">Display full-screen photo in incoming and outgoing calls</string>
     <string name="fullscreen_caller_photo_message">To use, you must restart the application</string>
+
+    <string name="incallui_background_color_title">InCallUI background color</string>
+    <string name="incallui_background_color_summary">Use system accent color for InCallUI background</string>
 </resources>
