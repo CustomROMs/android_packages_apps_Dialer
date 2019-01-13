@@ -18,7 +18,12 @@ package com.android.incallui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.om.IOverlayManager;
+import android.content.om.OverlayInfo;
 import android.graphics.Color;
+import android.os.RemoteException;
+import android.os.ServiceManager;
+import android.os.UserHandle;
 import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
@@ -26,6 +31,8 @@ import android.support.v4.graphics.ColorUtils;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
 import android.telecom.TelecomManager;
+import android.util.TypedValue;
+
 import com.android.contacts.common.util.MaterialColorMapUtils;
 import com.android.contacts.common.util.MaterialColorMapUtils.MaterialPalette;
 import com.android.incallui.call.DialerCall;
@@ -42,6 +49,8 @@ public class ThemeColorManager {
   @ColorInt private int backgroundColorMiddle;
   @ColorInt private int backgroundColorBottom;
   @ColorInt private int backgroundColorSolid;
+
+  private IOverlayManager mOverlayManager;
 
   /**
    * If there is no actual call currently in the call list, this will be used as a fallback to
@@ -82,7 +91,12 @@ public class ThemeColorManager {
   private void updateThemeColors(
           Context context, @Nullable PhoneAccountHandle handle, boolean isSpam) {
 
+      TypedValue value = new TypedValue();
+      context.getTheme().resolveAttribute(android.R.attr.colorAccent, value, true);
+      int accentColor = context.getColor(value.resourceId);
       int blackColor = context.getResources().getColor(R.color.incall_background_black_color);
+
+      mOverlayManager = IOverlayManager.Stub.asInterface(ServiceManager.getService(context.OVERLAY_SERVICE));
 
       MaterialPalette palette;
 
@@ -93,11 +107,16 @@ public class ThemeColorManager {
           backgroundColorBottom = context.getColor(R.color.incall_background_gradient_spam_bottom);
           backgroundColorSolid = context.getColor(R.color.incall_background_multiwindow_spam);
       } else if (!hasExternalThemeApplied(context) && (getInCallUIColorMode(context) == 1)) {
+          backgroundColorTop = isUsingWhiteAccent() ? getColorWithAlpha(Color.BLACK, 1.0f) : getColorWithAlpha(accentColor, 1.0f);
+          backgroundColorMiddle = isUsingWhiteAccent() ? getColorWithAlpha(Color.BLACK, 0.9f) : getColorWithAlpha(accentColor, 0.9f);
+          backgroundColorBottom = isUsingWhiteAccent() ? getColorWithAlpha(Color.BLACK, 0.7f) : getColorWithAlpha(accentColor, 0.7f);
+          backgroundColorSolid = isUsingWhiteAccent() ? getColorWithAlpha(Color.BLACK, 1.0f) : getColorWithAlpha(accentColor, 1.0f);
+      } else if (!hasExternalThemeApplied(context) && (getInCallUIColorMode(context) == 2)) {
           backgroundColorTop = getColorWithAlpha(blackColor, 1.0f);
           backgroundColorMiddle = getColorWithAlpha(blackColor, 0.9f);
           backgroundColorBottom = getColorWithAlpha(blackColor, 0.7f);
           backgroundColorSolid = getColorWithAlpha(blackColor, 1.0f);
-      } else if (!hasExternalThemeApplied(context) && (getInCallUIColorMode(context) == 2)) {
+      } else if (!hasExternalThemeApplied(context) && (getInCallUIColorMode(context) == 3)) {
           backgroundColorTop = context.getColor(android.R.color.transparent);
           backgroundColorMiddle = context.getColor(android.R.color.transparent);
           backgroundColorBottom = context.getColor(android.R.color.transparent);
@@ -177,6 +196,18 @@ public class ThemeColorManager {
       int b = Color.blue(color);
       newColor = Color.argb(alpha, r, g, b);
       return newColor;
+  }
+
+  // Check for white accent
+  private boolean isUsingWhiteAccent() {
+      OverlayInfo themeInfo = null;
+      try {
+          themeInfo = mOverlayManager.getOverlayInfo("org.lineageos.overlay.accent.white",
+                  UserHandle.USER_CURRENT);
+      } catch (RemoteException e) {
+          e.printStackTrace();
+      }
+      return themeInfo != null && themeInfo.isEnabled();
   }
 
   // Check to see if an external theme is applied (because we're so anti-theme :p)

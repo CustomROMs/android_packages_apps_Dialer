@@ -25,6 +25,7 @@
     <string name="incallui_background_color_mode_key" translatable="false">incallui_background_color_mode</string>
     <string name="default_incallui_background_color">Default</string>
     <string name="black_incallui_background_color">Black</string>
+    <string name="accent_incallui_background_color">Accent</string>
     <string name="transparent_incallui_background_color">Transparent</string>
 
     <!-- Dialer postcall -->

@@ -41,10 +41,12 @@
         <item>"0"</item>
         <item>"1"</item>
         <item>"2"</item>
+        <item>"3"</item>
     </string-array>
 
     <string-array name="incallui_background_color_mode_entries" translatable="false">
         <item>@string/default_incallui_background_color</item>
+        <item>@string/accent_incallui_background_color</item>
         <item>@string/black_incallui_background_color</item>
         <item>@string/transparent_incallui_background_color</item>
     </string-array>

@@ -24,6 +24,7 @@
     <string name="incallui_background_color_mode">Цвет фона интерфейса вызова</string>
     <string name="default_incallui_background_color">По умолчанию</string>
     <string name="black_incallui_background_color">Черный</string>
+    <string name="accent_incallui_background_color">Акцент</string>
     <string name="transparent_incallui_background_color">Прозрачный</string>
 
     <!-- Dialer postcall -->
